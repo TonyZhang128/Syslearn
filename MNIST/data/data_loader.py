@@ -1,6 +1,7 @@
 import torch.utils.data as data
 
 
+# class MNISTDataLoader(data.dataloader):
 class MNISTDataLoader():
     def __init__(self):
         self.name = 'MNIST'
