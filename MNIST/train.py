@@ -6,6 +6,7 @@ import torch.nn as nn
 from torch.utils.tensorboard import SummaryWriter
 from zyn import AverageMeter
 
+from options.train_options import TrainOptions
 def train():
     loss = AverageMeter('loss')
 def val():

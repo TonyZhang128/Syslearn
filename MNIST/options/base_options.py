@@ -1,6 +1,7 @@
 import argparse
 import os
 import torch
+from zyn import utils
 
 class BaseOptions():
 	def __init__(self):
@@ -25,6 +26,7 @@ class BaseOptions():
 		self.opt = self.parser.parse_args()
 		self.opt.mode = self.mode
 
+		# GPU ids
 		str_ids = self.opt.gpu_ids.split(',')
 		self.opt.gpu_ids = []
 		for str_id in str_ids:
@@ -37,7 +39,7 @@ class BaseOptions():
 			torch.cuda.set_device(self.opt.gpu_ids[0])
 
 
-		#I should process the opt here, like gpu ids, etc.
+		# print args
 		args = vars(self.opt)
 		print('------------ Options -------------')
 		for k, v in sorted(args.items()):
