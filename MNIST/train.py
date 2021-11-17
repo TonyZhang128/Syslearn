@@ -20,13 +20,13 @@ def main():
     opt.device = torch.device("cuda")
 
     #construct data loader
-    dataset_builder = DataLoaderFactory(opt)
-    train_ds = dataset_builder.build(split='train')    
-    ds: YoutubeDataset = train_ds.dataset
+    data_loader = CreateDataLoader(opt)
+    dataset = data_loader.load_data()
+    dataset_size = len(data_loader)
 
     #create validation set data loader if validation_on option is set
     if opt.validation_on:
-        # opt.mode = 'val'
+        opt.mode = 'val'
         val_ds = dataset_builder.build(split='val')
 
     # Tensorboard start
@@ -38,7 +38,7 @@ def main():
     model = torch.nn.DataParallel(model, device_ids=opt.gpu_ids)
 
     # Set up optimizer
-    optimizer = optim.Adam(model.parameters(), lr=opt.lr, betas=(0.9, 0.98), eps=1e-9)
+    optimizer = torch.optim.Adam(model.parameters(), lr=opt.lr, betas=(0.9, 0.98), eps=1e-9)
 
     # Set up loss functions
     train_criterion = nn.CrossEntropyLoss(
