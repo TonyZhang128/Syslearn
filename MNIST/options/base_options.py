@@ -11,6 +11,7 @@ class BaseOptions():
 	def initialize(self):
 		self.parser.add_argument('--name', type=str, default='MNIST Classification', help='name of the experiment')
 		self.parser.add_argument('--dataset', type=str, default='MNIST', help='name of dataset')
+		self.parser.add_argument('--dataset_path', type=str, default='', help='dataset pathdir')
 		self.parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints', help='models are saved here')
 		self.parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
 		self.parser.add_argument('--batchSize', type=int, default=16, help='input batch size')

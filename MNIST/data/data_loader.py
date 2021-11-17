@@ -1,16 +1,25 @@
-import torch.utils.data as data
+from torch.utils.data import DataLoader
+
+def CreateDataset(opt):
+    dataset = None
+    if opt.dataset == 'MNIST':
+        from data.mnist_dataset import MNISTDataset
+        dataset = MNISTDataset(opt)
+    else:
+        raise ValueError("Dataset [%s] not recognized." % opt.dataset)
+
+    print("dataset [%s] was created" % (dataset.name()))
+    return dataset
 
 
 # class MNISTDataLoader(data.dataloader):
 class MNISTDataLoader():
-    def __init__(self):
+    def __init__(self, opt):
         self.name = 'MNIST'
-    
-    def initialize(self, opt):
         self.opt = opt
         self.dataset = CreateDataset(opt)
         if opt.mode == 'train':
-            self.dataloader = data.DataLoader(
+            self.dataloader = DataLoader(
                 self.dataset,
                 batch_size=opt.batch_size,
                 shuffle=False,
@@ -19,7 +28,7 @@ class MNISTDataLoader():
             )
         
         elif opt.mode == 'val':
-            self.dataloader = data.DataLoader(
+            self.dataloader = DataLoader(
                 self.dataset,
                 batch_size=opt.batch_size,
                 shuffle=False,

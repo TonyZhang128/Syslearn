@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 from torch.utils.tensorboard import SummaryWriter
 from zyn import AverageMeter
+from data.data_loader import MNISTDataLoader
 
 from options.train_options import TrainOptions
 def train():
@@ -20,8 +21,7 @@ def main():
     opt.device = torch.device("cuda")
 
     #construct data loader
-    data_loader = CreateDataLoader(opt)
-    dataset = data_loader.load_data()
+    data_loader = MNISTDataLoader(opt)
     dataset_size = len(data_loader)
 
     #create validation set data loader if validation_on option is set

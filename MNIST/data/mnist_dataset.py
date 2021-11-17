@@ -5,7 +5,8 @@ from torchvision import transforms
 class MNISTDataset(data.Dataset):
     def __init__(self, opt):
         super().__init__()
-        self.root = opt.Dataset
+        self.name = opt.dataset
+        self.root = opt.dataset_path
         self.mode = opt.mode
         if opt.transform:
             self.transform = transforms.ToTensor 
