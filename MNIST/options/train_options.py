@@ -8,4 +8,5 @@ class TrainOptions(BaseOptions):
         self.parser.add_argument('--lr', default=0.001, type=float, help='learning rate of Adam')
         self.parser.add_argument('--lr_steps', nargs='+', type=int, default=[10000, 20000], help='steps to drop LR in training samples')
         self.parser.add_argument('--weight_decay', default=0.0001, type=float, help='weights regularizer')
+        self.parser.add_argument('--test_on', default=True, type=bool, help='whether using test on')
         self.mode = 'train'

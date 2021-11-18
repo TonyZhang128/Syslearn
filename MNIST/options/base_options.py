@@ -11,13 +11,14 @@ class BaseOptions():
 	def initialize(self):
 		self.parser.add_argument('--name', type=str, default='MNIST Classification', help='name of the experiment')
 		self.parser.add_argument('--dataset', type=str, default='MNIST', help='name of dataset')
-		self.parser.add_argument('--dataset_path', type=str, default='', help='dataset pathdir')
+		self.parser.add_argument('--dataset_path', type=str, default='/data/zyn/MNIST/processed', help='dataset pathdir')
 		self.parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints', help='models are saved here')
 		self.parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
-		self.parser.add_argument('--batchSize', type=int, default=16, help='input batch size')
+		self.parser.add_argument('--batch_size', type=int, default=256, help='input batch size')
 		self.parser.add_argument('--nThreads', default=16, type=int, help='# workers for loading data')
 		self.parser.add_argument('--seed', default=0, type=int, help='random seed')
 		self.parser.add_argument('--num_epoch', default=200, type=int, help='epochs for running') 
+		self.parser.add_argument('--transform', default=True, type=bool, help='whether using transform to input')
 
 		self.initialized = True
 	

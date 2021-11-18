@@ -1,3 +1,4 @@
+import torch
 from torch.utils.data import DataLoader
 
 def CreateDataset(opt):
@@ -8,9 +9,11 @@ def CreateDataset(opt):
     else:
         raise ValueError("Dataset [%s] not recognized." % opt.dataset)
 
-    print("dataset [%s] was created" % (dataset.name()))
+    print("dataset [%s] was created" % (dataset.name))
     return dataset
 
+def collate(bacth):
+    return [collate(samples) for samples in bacth]
 
 # class MNISTDataLoader(data.dataloader):
 class MNISTDataLoader():
@@ -18,13 +21,14 @@ class MNISTDataLoader():
         self.name = 'MNIST'
         self.opt = opt
         self.dataset = CreateDataset(opt)
+        self.collate = collate
         if opt.mode == 'train':
             self.dataloader = DataLoader(
                 self.dataset,
                 batch_size=opt.batch_size,
                 shuffle=False,
                 num_workers=opt.nThreads,
-                collate_fn=collate
+                # collate_fn=self.collate
             )
         
         elif opt.mode == 'val':
@@ -33,7 +37,7 @@ class MNISTDataLoader():
                 batch_size=opt.batch_size,
                 shuffle=False,
                 num_workers=opt.nThreads,
-                collate_fn=collate
+                # collate_fn=self.collate
             )
 
     def load_data():
