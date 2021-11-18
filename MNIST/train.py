@@ -41,12 +41,8 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=opt.lr, betas=(0.9, 0.98), eps=1e-9)
 
     # Set up loss functions
-    train_criterion = nn.CrossEntropyLoss(
-        ignore_index = ds.PAD_IDX
-    )
-    val_criterion = nn.CrossEntropyLoss(
-        ignore_index = ds.PAD_IDX
-    )
+    train_criterion = nn.CrossEntropyLoss()
+    val_criterion = nn.CrossEntropyLoss()
 
     num_epoch = opt.num_epoch
     best_loss = float('inf')
