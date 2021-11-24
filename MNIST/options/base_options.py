@@ -17,7 +17,7 @@ class BaseOptions():
 		self.parser.add_argument('--batch_size', type=int, default=256, help='input batch size')
 		self.parser.add_argument('--nThreads', default=16, type=int, help='# workers for loading data')
 		self.parser.add_argument('--seed', default=0, type=int, help='random seed')
-		self.parser.add_argument('--num_epoch', default=200, type=int, help='epochs for running') 
+		self.parser.add_argument('--num_epoch', default=20, type=int, help='epochs for running') 
 		self.parser.add_argument('--transform', default=True, type=bool, help='whether using transform to input')
 
 		self.initialized = True

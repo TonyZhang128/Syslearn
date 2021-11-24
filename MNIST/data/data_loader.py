@@ -31,7 +31,7 @@ class MNISTDataLoader():
                 # collate_fn=self.collate
             )
         
-        elif opt.mode == 'val':
+        elif opt.mode == 'test':
             self.dataloader = DataLoader(
                 self.dataset,
                 batch_size=opt.batch_size,
