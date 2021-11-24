@@ -1,6 +1,7 @@
 import torch
 import os
 import torch.utils.data as data
+from PIL import Image
 from torchvision import transforms
 class MNISTDataset(data.Dataset):
     def __init__(self, opt):
@@ -11,7 +12,7 @@ class MNISTDataset(data.Dataset):
         if opt.transform:
             self.transform = transforms.Compose(
                 [transforms.ToTensor(),
-                transforms.Normalize((0.1307,), (0.3081,))
+                 transforms.Normalize((0.1307,), (0.3081,))
                 ])
         else:
             self.transform = None
@@ -26,9 +27,10 @@ class MNISTDataset(data.Dataset):
     def __getitem__(self, index):
         img, labels = self.data[index], int(self.labels[index])
 
+        img = Image.fromarray(img.numpy(), mode='L')
+
         if self.transform:
-            ...
-            # img = self.transform(img)
+            img = self.transform(img)
         
         return img, labels  
 

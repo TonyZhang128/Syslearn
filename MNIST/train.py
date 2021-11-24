@@ -23,7 +23,7 @@ def train(
     loss_meter = AverageMeter('loss')
     acc_meter = AverageMeter('accuracy')
     model.train()
-    num_iter = len(dataloader_train)
+    num_iters = int(len(dataloader_train) / opt.batch_size)
     for i, (data, label) in enumerate(dataloader_train):
         data, label = data.to(opt.device), label.to(opt.device)
         optimizer.zero_grad()
@@ -31,7 +31,12 @@ def train(
         loss = train_criterion(output, label)
         loss.backward()
         optimizer.step()
+        loss_meter.update(loss, data.shape[0])
         # acc = 
+        print(f'Train [{epoch}]/{opt.num_epoch}][{i}/{num_iters}]\t')
+        print(f'{loss_meter}')
+    summary_writer.add_scalar('train_loss', loss_meter.avg, epoch)
+    return loss_meter.avg
     
 
 def val():
@@ -71,14 +76,14 @@ def main():
     # Set up loss functions
     train_criterion = nn.CrossEntropyLoss()
     test_criterion = nn.CrossEntropyLoss()
-    train_criterion = nn.MSELoss()
+    # train_criterion = nn.MSELoss()
 
     num_epoch = opt.num_epoch
     best_loss = float('inf')
     for epoch in range(num_epoch):
         start_time = time.time()
         train_loss = train(opt, epoch, dataloader_train, summary_writer, model, optimizer, train_criterion)
-        test_loss = val(opt, epoch, dataloader_test, summary_writer, model, optimizer, test_criterion)
+        # test_loss = val(opt, epoch, dataloader_test, summary_writer, model, optimizer, test_criterion)
         end_time = time.time()
         epoch_mins, epoch_secs = epoch_time(start_time, end_time)
 

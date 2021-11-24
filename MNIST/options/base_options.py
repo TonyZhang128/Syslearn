@@ -9,7 +9,7 @@ class BaseOptions():
 		self.initialized = False
 
 	def initialize(self):
-		self.parser.add_argument('--name', type=str, default='MNIST Classification', help='name of the experiment')
+		self.parser.add_argument('--name', type=str, default='MNIST_Classification', help='name of the experiment')
 		self.parser.add_argument('--dataset', type=str, default='MNIST', help='name of dataset')
 		self.parser.add_argument('--dataset_path', type=str, default='/data/zyn/MNIST/processed', help='dataset pathdir')
 		self.parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints', help='models are saved here')
@@ -39,6 +39,12 @@ class BaseOptions():
 		# set gpu ids
 		if len(self.opt.gpu_ids) > 0:
 			torch.cuda.set_device(self.opt.gpu_ids[0])
+		
+		# ckpt
+		if self.opt.ckpt:
+			self.opt.ckpt = os.path.join(self.opt.ckpt, self.opt.name)
+			from zyn.utils import mkdirs
+			mkdirs(self.opt.ckpt)
 
 
 		# print args
